@@ -13,7 +13,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/lelikov/test
+            ghcr.io/lelikov/calendar-zhivaya
           tags: |
             type=schedule
             type=ref,event=branch

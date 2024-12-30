@@ -56,3 +56,9 @@ jobs:
             NEXT_PUBLIC_API_V2_URL=${{ secrets.NEXT_PUBLIC_API_V2_URL }}
             NEXT_PUBLIC_LICENSE_CONSENT=${{ secrets.NEXT_PUBLIC_LICENSE_CONSENT }}
             NEXT_PUBLIC_TELEMETRY_KEY=${{ secrets.NEXT_PUBLIC_TELEMETRY_KEY }}
+            NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+            CALENDSO_ENCRYPTION_KEY=${{ secrets.CALENDSO_ENCRYPTION_KEY }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

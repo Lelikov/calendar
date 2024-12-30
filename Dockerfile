@@ -33,8 +33,8 @@ COPY tests ./tests
 RUN yarn config set httpTimeout 1200000
 RUN npx turbo prune --scope=@calcom/web --docker
 RUN yarn install
-RUN yarn db-deploy
-RUN yarn --cwd packages/prisma seed-app-store
+#RUN yarn db-deploy
+#RUN yarn --cwd packages/prisma seed-app-store
 # Build and make embed servable from web/public/embed folder
 RUN yarn --cwd packages/embeds/embed-core workspace @calcom/embed-core run build
 RUN yarn --cwd apps/web workspace @calcom/web run build

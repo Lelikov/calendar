@@ -8,6 +8,11 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5

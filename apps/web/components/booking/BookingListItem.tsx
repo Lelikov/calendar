@@ -298,7 +298,7 @@ function BookingListItem(booking: BookingItemProps) {
     bookedActions = bookedActions.filter((action) => action.id !== "edit_booking");
   }
   const teamId = booking.eventType?.team?.id || 0;
-  const memberId = userId;
+  const memberId = userId || 0;
   const query = trpc.viewer.teams.getMembershipbyUser.useQuery({ teamId, memberId });
   const isTeamMember = query.data?.role === MembershipRole.MEMBER;
 

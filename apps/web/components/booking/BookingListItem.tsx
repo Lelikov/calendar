@@ -17,7 +17,7 @@ import { useLocale } from "@calcom/lib/hooks/useLocale";
 import { useGetTheme } from "@calcom/lib/hooks/useTheme";
 import isSmsCalEmail from "@calcom/lib/isSmsCalEmail";
 import { getEveryFreqFor } from "@calcom/lib/recurringStrings";
-import { BookingStatus, SchedulingType } from "@calcom/prisma/enums";
+import { BookingStatus, MembershipRole, SchedulingType } from "@calcom/prisma/enums";
 import { bookingMetadataSchema } from "@calcom/prisma/zod-utils";
 import type { RouterInputs, RouterOutputs } from "@calcom/trpc/react";
 import { trpc } from "@calcom/trpc/react";
@@ -106,7 +106,7 @@ const isBookingReroutable = (booking: ParsedBooking): booking is ReroutableBooki
 function BookingListItem(booking: BookingItemProps) {
   const parsedBooking = buildParsedBooking(booking);
 
-  const { userTimeZone, userTimeFormat, userEmail } = booking.loggedInUser;
+  const { userId, userTimeZone, userTimeFormat, userEmail } = booking.loggedInUser;
   const {
     t,
     i18n: { language },
@@ -297,8 +297,12 @@ function BookingListItem(booking: BookingItemProps) {
   if (isTabRecurring && isRecurring) {
     bookedActions = bookedActions.filter((action) => action.id !== "edit_booking");
   }
+  const teamId = booking.eventType?.team?.id || 0;
+  const memberId = userId;
+  const query = trpc.viewer.teams.getMembershipbyUser.useQuery({ teamId, memberId });
+  const isTeamMember = query.data?.role === MembershipRole.MEMBER;
 
-  if (isBookingInPast && isPending && !isConfirmed) {
+  if (isTeamMember || (isBookingInPast && isPending && !isConfirmed)) {
     bookedActions = bookedActions.filter((action) => action.id !== "cancel");
   }
 

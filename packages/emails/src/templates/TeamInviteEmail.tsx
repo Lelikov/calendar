@@ -98,8 +98,8 @@ export const TeamInviteEmail = (
         <p style={{ fontWeight: 400, margin: 0 }}>
           <>
             {props.language("have_any_questions")}{" "}
-            <a href="mailto:support@cal.com" style={{ color: "#3E3E3E" }} target="_blank" rel="noreferrer">
-              <>{props.language("contact")}</>
+            <a href="https://t.me/SenatorovaOS" style={{ color: "#3E3E3E" }} target="_blank" rel="noreferrer">
+              <>https://t.me/SenatorovaOS</>
             </a>{" "}
             {props.language("our_support_team")}
           </>

@@ -12,7 +12,7 @@ import { z } from "zod";
 import { ErrorCode } from "@calcom/features/auth/lib/ErrorCode";
 import SectionBottomActions from "@calcom/features/settings/SectionBottomActions";
 import { DisplayInfo } from "@calcom/features/users/components/UserTable/EditSheet/DisplayInfo";
-import { FULL_NAME_LENGTH_MAX_LIMIT } from "@calcom/lib/constants";
+import { FULL_NAME_LENGTH_MAX_LIMIT, TELEGRAM_BOT_NAME } from "@calcom/lib/constants";
 import { emailSchema } from "@calcom/lib/emailSchema";
 import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
@@ -83,6 +83,8 @@ export type FormValues = {
   name: string;
   email: string;
   bio: string;
+  telegram_token?: string | null;
+  telegram_chat_id?: string | bigint | null;
   secondaryEmails: Email[];
 };
 
@@ -250,6 +252,8 @@ const ProfileView = () => {
     name: user.name || "",
     email: userEmail,
     bio: user.bio || "",
+    telegram_token: user.telegram_token || "",
+    telegram_chat_id: user.telegram_chat_id || "",
     // We add the primary email as the first item in the list
     secondaryEmails: [
       {
@@ -554,6 +558,8 @@ const ProfileForm = ({
   } = formMethods;
 
   const isDisabled = isSubmitting || !isDirty;
+
+  const telegramAddPayload = btoa(`${user.id}@${user.telegram_token}`);
   return (
     <Form form={formMethods} handleSubmit={handleFormSubmit}>
       <div className="border-subtle border-x px-4 pb-10 pt-8 sm:px-6">
@@ -633,6 +639,23 @@ const ProfileForm = ({
             </Button>
           </div>
         </div>
+        {TELEGRAM_BOT_NAME && (
+          <div className="mt-6">
+            <Label>Telegram</Label>
+            <Button
+              type="button"
+              color={user.telegram_chat_id ? "minimal" : "primary"}
+              href={
+                !user.telegram_chat_id ? `https://t.me/${TELEGRAM_BOT_NAME}?start=${telegramAddPayload}` : "#"
+              }
+              disabled={!!user.telegram_chat_id}>
+              {user.telegram_chat_id
+                ? "Вы подписаны на Telegram уведомления"
+                : "Подписаться на Telegram уведомления"}
+            </Button>
+          </div>
+        )}
+
         <div className="mt-6">
           <Label>{t("about")}</Label>
           <Editor

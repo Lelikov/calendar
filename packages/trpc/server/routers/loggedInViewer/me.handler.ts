@@ -125,6 +125,8 @@ export const meHandler = async ({ ctx, input }: MeOptions) => {
     hideBranding: user.hideBranding,
     metadata: user.metadata,
     defaultBookerLayouts: user.defaultBookerLayouts,
+    telegram_token: user.telegram_token,
+    telegram_chat_id: user.telegram_chat_id,
     allowDynamicBooking: user.allowDynamicBooking,
     allowSEOIndexing: user.allowSEOIndexing,
     receiveMonthlyDigestEmail: user.receiveMonthlyDigestEmail,

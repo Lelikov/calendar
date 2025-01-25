@@ -870,13 +870,17 @@ export class UserRepository {
         allowSEOIndexing: true,
         receiveMonthlyDigestEmail: true,
         profiles: true,
+        telegram_token: true,
+        telegram_chat_id: true,
       },
     });
 
     if (!user) {
       return null;
     }
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    user.telegram_chat_id = user.telegram_chat_id?.toString();
     return withSelectedCalendars(user);
   }
 

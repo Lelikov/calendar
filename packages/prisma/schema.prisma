@@ -269,6 +269,8 @@ model User {
   /// @zod.custom(imports.emailSchema)
   email               String
   emailVerified       DateTime?
+  telegram_token      String?              @default(dbgenerated("md5(random()::text)"))
+  telegram_chat_id    BigInt?
   password            UserPassword?
   bio                 String?
   avatarUrl           String?

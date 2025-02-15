@@ -31,6 +31,7 @@ export const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Cal.com, In
 export const SENDER_ID = process.env.NEXT_PUBLIC_SENDER_ID || "Cal";
 export const SENDER_NAME = process.env.NEXT_PUBLIC_SENDGRID_SENDER_NAME || "Cal.com";
 export const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || APP_NAME;
+export const NEXTCLOUD_ADMIN_CREDS = process.env.NEXTCLOUD_ADMIN_CREDS || "1";
 
 // This is the URL from which all Cal Links and their assets are served.
 // Use website URL to make links shorter(cal.com and not app.cal.com)

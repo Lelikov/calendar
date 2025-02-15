@@ -10,6 +10,7 @@ import { appKeysSchema as calVideoKeysSchema } from "@calcom/app-store/dailyvide
 import { getLocationFromApp, MeetLocationType } from "@calcom/app-store/locations";
 import getApps from "@calcom/app-store/utils";
 import { getUid } from "@calcom/lib/CalEventParser";
+import { NEXTCLOUD_ADMIN_CREDS } from "@calcom/lib/constants";
 import logger from "@calcom/lib/logger";
 import {
   getPiiFreeDestinationCalendar,
@@ -758,8 +759,9 @@ export default class EventManager {
     const integrationName = event.location.replace("integrations:", "");
     let videoCredential;
     if (event.conferenceCredentialId) {
+      console.log(NEXTCLOUD_ADMIN_CREDS);
       videoCredential = this.videoCredentials.find(
-        (credential) => credential.id === event.conferenceCredentialId
+        (credential) => credential.id.toString() === NEXTCLOUD_ADMIN_CREDS.toString()
       );
     } else {
       videoCredential = this.videoCredentials.find((credential: CredentialPayload) =>

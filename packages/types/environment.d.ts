@@ -18,6 +18,7 @@ declare namespace NodeJS {
     readonly ZOOM_CLIENT_SECRET: string | undefined;
     readonly EMAIL_FROM: string | undefined;
     readonly EMAIL_FROM_NAME: string | undefined;
+    readonly NEXTCLOUD_ADMIN_CREDS: string | undefined;
     readonly EMAIL_SERVER_HOST: string | undefined;
     readonly EMAIL_SERVER_PORT: string | undefined;
     readonly EMAIL_SERVER_USER: string | undefined;

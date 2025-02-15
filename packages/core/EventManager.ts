@@ -10,7 +10,6 @@ import { appKeysSchema as calVideoKeysSchema } from "@calcom/app-store/dailyvide
 import { getLocationFromApp, MeetLocationType } from "@calcom/app-store/locations";
 import getApps from "@calcom/app-store/utils";
 import { getUid } from "@calcom/lib/CalEventParser";
-import { NEXTCLOUD_ADMIN_CREDS } from "@calcom/lib/constants";
 import logger from "@calcom/lib/logger";
 import {
   getPiiFreeDestinationCalendar,
@@ -756,21 +755,8 @@ export default class EventManager {
     }
 
     /** @fixme potential bug since Google Meet are saved as `integrations:google:meet` and there are no `google:meet` type in our DB */
-    const integrationName = event.location.replace("integrations:", "");
     let videoCredential;
-    if (event.conferenceCredentialId) {
-      console.log(NEXTCLOUD_ADMIN_CREDS);
-      videoCredential = this.videoCredentials.find(
-        (credential) => credential.id.toString() === NEXTCLOUD_ADMIN_CREDS.toString()
-      );
-    } else {
-      videoCredential = this.videoCredentials.find((credential: CredentialPayload) =>
-        credential.type.includes(integrationName)
-      );
-      log.warn(
-        `Could not find conferenceCredentialId for event with location: ${event.location}, trying to use last added video credential`
-      );
-    }
+    videoCredential = this.videoCredentials.find((credential) => credential.type === "nextcloudtalk_video");
 
     /**
      * This might happen if someone tries to use a location with a missing credential, so we fallback to Cal Video.

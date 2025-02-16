@@ -12,7 +12,7 @@ import { z } from "zod";
 import { ErrorCode } from "@calcom/features/auth/lib/ErrorCode";
 import SectionBottomActions from "@calcom/features/settings/SectionBottomActions";
 import { DisplayInfo } from "@calcom/features/users/components/UserTable/EditSheet/DisplayInfo";
-import { FULL_NAME_LENGTH_MAX_LIMIT, TELEGRAM_BOT_NAME } from "@calcom/lib/constants";
+import { FULL_NAME_LENGTH_MAX_LIMIT } from "@calcom/lib/constants";
 import { emailSchema } from "@calcom/lib/emailSchema";
 import { getUserAvatarUrl } from "@calcom/lib/getAvatarUrl";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
@@ -639,23 +639,21 @@ const ProfileForm = ({
             </Button>
           </div>
         </div>
-        {TELEGRAM_BOT_NAME && (
-          <div className="mt-6">
-            <Label>Telegram</Label>
-            <Button
-              type="button"
-              color={user.telegram_chat_id ? "minimal" : "primary"}
-              href={
-                !user.telegram_chat_id ? `https://t.me/${TELEGRAM_BOT_NAME}?start=${telegramAddPayload}` : "#"
-              }
-              disabled={!!user.telegram_chat_id}>
-              {user.telegram_chat_id
-                ? "Вы подписаны на Telegram уведомления"
-                : "Подписаться на Telegram уведомления"}
-            </Button>
-          </div>
-        )}
-
+        <div className="mt-6">
+          <Label>Telegram</Label>
+          <Button
+            type="button"
+            color={user.telegram_chat_id ? "minimal" : "primary"}
+            href={
+              !user.telegram_chat_id ? `https://t.me/zhivaya_volunteer_bot?start=${telegramAddPayload}` : "#"
+            }
+            disabled={!!user.telegram_chat_id}>
+            {user.telegram_chat_id
+              ? "Вы подписаны на Telegram уведомления"
+              : "Подписаться на Telegram уведомления"}
+          </Button>
+        </div>
+        )
         <div className="mt-6">
           <Label>{t("about")}</Label>
           <Editor

@@ -653,7 +653,6 @@ const ProfileForm = ({
               : "Подписаться на Telegram уведомления"}
           </Button>
         </div>
-        )
         <div className="mt-6">
           <Label>{t("about")}</Label>
           <Editor

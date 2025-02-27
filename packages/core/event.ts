@@ -35,7 +35,6 @@ export function getEventName(eventNameObj: EventNameObjectType, forAttendeeView 
     return eventNameObj.t("event_between_users", {
       eventName: eventNameObj.eventType,
       host: eventNameObj.teamName || eventNameObj.host,
-      attendeeName,
       interpolation: {
         escapeValue: false,
       },

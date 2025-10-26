@@ -255,7 +255,7 @@ export const sendRescheduledEmailsAndSMS = async (
     emailsToSend.push(sendEmail(() => new OrganizerRescheduledEmail({ calEvent: calendarEvent })));
 
     if (calendarEvent.team) {
-      for (const teamMember of calendarEvent.team.members) {
+      for (const teamMember of calendarEvent.team?.members ?? []) {
         emailsToSend.push(
           sendEmail(() => new OrganizerRescheduledEmail({ calEvent: calendarEvent, teamMember }))
         );
@@ -314,7 +314,7 @@ export const sendScheduledSeatsEmailsAndSMS = async (
     emailsToSend.push(sendEmail(() => new OrganizerScheduledEmail({ calEvent: calendarEvent, newSeat })));
 
     if (calendarEvent.team) {
-      for (const teamMember of calendarEvent.team.members) {
+      for (const teamMember of calendarEvent.team?.members ?? []) {
         emailsToSend.push(
           sendEmail(() => new OrganizerScheduledEmail({ calEvent: calendarEvent, newSeat, teamMember }))
         );
@@ -376,7 +376,7 @@ export const sendOrganizerRequestEmail = async (
   emailsToSend.push(sendEmail(() => new OrganizerRequestEmail({ calEvent: calendarEvent })));
 
   if (calendarEvent.team?.members) {
-    for (const teamMember of calendarEvent.team.members) {
+    for (const teamMember of calendarEvent.team?.members ?? []) {
       emailsToSend.push(sendEmail(() => new OrganizerRequestEmail({ calEvent: calendarEvent, teamMember })));
     }
   }
@@ -438,7 +438,7 @@ export const sendCancelledEmailsAndSMS = async (
     emailsToSend.push(sendEmail(() => new OrganizerCancelledEmail({ calEvent: calendarEvent })));
 
     if (calendarEvent.team?.members) {
-      for (const teamMember of calendarEvent.team.members) {
+      for (const teamMember of calendarEvent.team?.members ?? []) {
         emailsToSend.push(
           sendEmail(() => new OrganizerCancelledEmail({ calEvent: calendarEvent, teamMember }))
         );
@@ -489,7 +489,7 @@ export const sendOrganizerRequestReminderEmail = async (
   emailsToSend.push(sendEmail(() => new OrganizerRequestReminderEmail({ calEvent: calendarEvent })));
 
   if (calendarEvent.team?.members) {
-    for (const teamMember of calendarEvent.team.members) {
+    for (const teamMember of calendarEvent.team?.members ?? []) {
       emailsToSend.push(
         sendEmail(() => new OrganizerRequestReminderEmail({ calEvent: calendarEvent, teamMember }))
       );
@@ -589,7 +589,7 @@ export const sendLocationChangeEmailsAndSMS = async (
     emailsToSend.push(sendEmail(() => new OrganizerLocationChangeEmail({ calEvent: calendarEvent })));
 
     if (calendarEvent.team?.members) {
-      for (const teamMember of calendarEvent.team.members) {
+      for (const teamMember of calendarEvent.team?.members ?? []) {
         emailsToSend.push(
           sendEmail(() => new OrganizerLocationChangeEmail({ calEvent: calendarEvent, teamMember }))
         );
@@ -616,7 +616,7 @@ export const sendAddGuestsEmails = async (calEvent: CalendarEvent, newGuests: st
   emailsToSend.push(sendEmail(() => new OrganizerAddGuestsEmail({ calEvent: calendarEvent })));
 
   if (calendarEvent.team?.members) {
-    for (const teamMember of calendarEvent.team.members) {
+    for (const teamMember of calendarEvent.team?.members ?? []) {
       emailsToSend.push(
         sendEmail(() => new OrganizerAddGuestsEmail({ calEvent: calendarEvent, teamMember }))
       );

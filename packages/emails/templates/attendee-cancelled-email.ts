@@ -13,10 +13,9 @@ export default class AttendeeCancelledEmail extends AttendeeScheduledEmail {
         status: "CANCELLED",
       }),
       to: `${this.attendee.name} <${this.attendee.email}>`,
-      from: `${this.calEvent.organizer.name} <${this.getMailerOptions().from}>`,
-      replyTo: this.calEvent.organizer.email,
+      from: `Психолог-волонтер <${this.getMailerOptions().from}>`,
       subject: `${this.t("event_cancelled_subject", {
-        title: this.calEvent.title,
+        title: "Встреча с психологом-волонтером",
         date: this.getFormattedDate(),
       })}`,
       html: await this.getHtml(this.calEvent, this.attendee),

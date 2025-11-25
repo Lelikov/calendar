@@ -13,10 +13,9 @@ export default class AttendeeUpdatedEmail extends AttendeeScheduledEmail {
         status: "CONFIRMED",
       }),
       to: `${this.attendee.name} <${this.attendee.email}>`,
-      from: `${this.calEvent.organizer.name} <${this.getMailerOptions().from}>`,
-      replyTo: [...this.calEvent.attendees.map(({ email }) => email), this.calEvent.organizer.email],
+      from: `Психолог-волонтер <${this.getMailerOptions().from}>`,
       subject: `${this.attendee.language.translate("event_type_has_been_updated", {
-        title: this.calEvent.title,
+        title: "Встреча с психологом-волонтером",
         date: this.getFormattedDate(),
       })}`,
       html: await this.getHtml(this.calEvent, this.attendee),

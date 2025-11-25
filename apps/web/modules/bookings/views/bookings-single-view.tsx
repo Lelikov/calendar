@@ -469,14 +469,6 @@ export default function Success(props: PageProps) {
                   <>
                     <div
                       className={classNames(isRoundRobin && "min-w-32 min-h-24 relative mx-auto h-24 w-32")}>
-                      {isRoundRobin && bookingInfo.user && (
-                        <Avatar
-                          className="mx-auto flex items-center justify-center"
-                          alt={bookingInfo.user.name || bookingInfo.user.email}
-                          size="xl"
-                          imageSrc={`${bookingInfo.user.avatarUrl}`}
-                        />
-                      )}
                       {giphyImage && !needsConfirmation && isReschedulable && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={giphyImage} className="w-full rounded-lg" alt="Gif from Giphy" />
@@ -533,10 +525,6 @@ export default function Success(props: PageProps) {
                             <div className="col-span-2 mb-6 last:mb-0">{cancellationReason}</div>
                           </>
                         )}
-                        <div className="font-medium">{t("what")}</div>
-                        <div className="col-span-2 mb-6 last:mb-0" data-testid="booking-title">
-                          {isRoundRobin ? bookingInfo.title : eventName}
-                        </div>
                         <div className="font-medium">{t("when")}</div>
                         <div className="col-span-2 mb-6 last:mb-0">
                           {reschedule && !!formerTime && (
@@ -568,16 +556,6 @@ export default function Success(props: PageProps) {
                           <>
                             <div className="font-medium">{t("who")}</div>
                             <div className="col-span-2 last:mb-0">
-                              {bookingInfo?.user && (
-                                <div className="mb-3">
-                                  <div>
-                                    <span data-testid="booking-host-name" className="mr-2">
-                                      {bookingInfo.user.name}
-                                    </span>
-                                    <Badge variant="blue">{t("Host")}</Badge>
-                                  </div>
-                                </div>
-                              )}
                               {bookingInfo?.attendees.map((attendee) => (
                                 <div key={attendee.name + attendee.email} className="mb-3 last:mb-0">
                                   {attendee.name && (

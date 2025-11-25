@@ -100,7 +100,6 @@ export const BaseScheduledEmail = (
           )}
         </>
       )}
-      <Info label="Вас примет" description={props.calEvent.title} withSpacer />
       <WhenInfo timeFormat={timeFormat} calEvent={props.calEvent} t={t} timeZone={timeZone} locale={locale} />
       <WhoInfo calEvent={props.calEvent} t={t} />
       <LocationInfo calEvent={props.calEvent} t={t} />

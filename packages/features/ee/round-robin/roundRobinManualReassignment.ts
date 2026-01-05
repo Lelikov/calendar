@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash";
 
 import { OrganizerDefaultConferencingAppType, getLocationValueForDB } from "@calcom/app-store/locations";
 import { getEventName } from "@calcom/core/event";
+import monitorCallbackAsync from "@calcom/core/sentryWrapper";
 import dayjs from "@calcom/dayjs";
 import {
   sendRoundRobinCancelledEmailsAndSMS,
@@ -12,12 +13,15 @@ import {
 import getBookingResponsesSchema from "@calcom/features/bookings/lib/getBookingResponsesSchema";
 import { getCalEventResponses } from "@calcom/features/bookings/lib/getCalEventResponses";
 import { getEventTypesFromDB } from "@calcom/features/bookings/lib/handleNewBooking/getEventTypesFromDB";
+import { handleWebhookTrigger } from "@calcom/features/bookings/lib/handleWebhookTrigger";
 import AssignmentReasonRecorder from "@calcom/features/ee/round-robin/assignmentReason/AssignmentReasonRecorder";
 import {
   scheduleEmailReminder,
   deleteScheduledEmailReminder,
 } from "@calcom/features/ee/workflows/lib/reminders/emailReminderManager";
 import { scheduleWorkflowReminders } from "@calcom/features/ee/workflows/lib/reminders/reminderScheduler";
+import type { GetSubscriberOptions } from "@calcom/features/webhooks/lib/getWebhooks";
+import type { EventPayloadType } from "@calcom/features/webhooks/lib/sendPayload";
 import { isPrismaObjOrUndefined } from "@calcom/lib";
 import { getVideoCallUrlFromCalEvent } from "@calcom/lib/CalEventParser";
 import { SENDER_NAME } from "@calcom/lib/constants";
@@ -26,7 +30,12 @@ import logger from "@calcom/lib/logger";
 import { getTranslation } from "@calcom/lib/server/i18n";
 import { getTimeFormatStringFromUserTimeFormat } from "@calcom/lib/timeFormat";
 import { prisma } from "@calcom/prisma";
-import { WorkflowActions, WorkflowMethods, WorkflowTriggerEvents } from "@calcom/prisma/enums";
+import {
+  WorkflowActions,
+  WorkflowMethods,
+  WorkflowTriggerEvents,
+  WebhookTriggerEvents,
+} from "@calcom/prisma/enums";
 import { userMetadata as userMetadataSchema } from "@calcom/prisma/zod-utils";
 import type { EventTypeMetadata, PlatformClientParams } from "@calcom/prisma/zod-utils";
 import type { CalendarEvent } from "@calcom/types/Calendar";
@@ -363,6 +372,24 @@ export const roundRobinManualReassignment = async ({
     });
   }
 
+  const subscriberOptions: GetSubscriberOptions = {
+    eventTypeId,
+    triggerEvent: WebhookTriggerEvents.BOOKING_RESCHEDULED,
+  };
+
+  const webhookData: EventPayloadType = {
+    ...evt,
+    bookingId: bookingId,
+    eventTypeId,
+  };
+
+  const eventTrigger = WebhookTriggerEvents.BOOKING_RESCHEDULED;
+
+  await monitorCallbackAsync(handleWebhookTrigger, {
+    subscriberOptions,
+    eventTrigger,
+    webhookData,
+  });
   return booking;
 };
 

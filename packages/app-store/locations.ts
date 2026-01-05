@@ -437,7 +437,7 @@ export function getSuccessPageLocationMessage(
   console.log("location", location);
   console.log("t", t);
   console.log("bookingStatus", bookingStatus);
-  return null;
+  return "";
 }
 
 export const getTranslatedLocation = (

@@ -148,7 +148,7 @@
   "join_by_entrypoint": "Присоединиться с {{entryPoint}}",
   "notes": "Примечания",
   "manage_my_bookings": "Управление моими записями",
-  "need_to_make_a_change": "Хотите внести изменения?",
+  "need_to_make_a_change": "Хотите отменить?",
   "new_event_scheduled": "Новое событие запланировано.",
   "new_event_scheduled_recurring": "Запланировано новое повторяющееся событие.",
   "invitee_email": "Email приглашенного",

@@ -51,8 +51,6 @@ import { BookingStatus, SchedulingType } from "@calcom/prisma/enums";
 import { bookingMetadataSchema, eventTypeMetaDataSchemaWithTypedApps } from "@calcom/prisma/zod-utils";
 import { trpc } from "@calcom/trpc/react";
 import {
-  Avatar,
-  Badge,
   Button,
   EmailInput,
   useCalcomTheme,
@@ -712,23 +710,6 @@ export default function Success(props: PageProps) {
                             </span>
 
                             <>
-                              {!props.recurringBookings && !isBookingInPast && (
-                                <span className="text-default inline">
-                                  <span className="underline" data-testid="reschedule-link">
-                                    <Link
-                                      href={`/reschedule/${seatReferenceUid || bookingInfo?.uid}${
-                                        currentUserEmail
-                                          ? `?rescheduledBy=${encodeURIComponent(currentUserEmail)}`
-                                          : ""
-                                      }`}
-                                      legacyBehavior>
-                                      {t("reschedule")}
-                                    </Link>
-                                  </span>
-                                  <span className="mx-2">{t("or_lowercase")}</span>
-                                </span>
-                              )}
-
                               <button
                                 data-testid="cancel"
                                 className={classNames(
@@ -876,13 +857,7 @@ export default function Success(props: PageProps) {
                         iconWrapperClassName="bg-error"
                         headline={t("host_no_show")}
                         description={t("no_show_description")}
-                        buttonRaw={
-                          !props.recurringBookings ? (
-                            <Button href={`/reschedule/${seatReferenceUid || bookingInfo?.uid}`}>
-                              {t("reschedule")}
-                            </Button>
-                          ) : undefined
-                        }
+                        buttonRaw={undefined}
                       />
                     </>
                   ) : (

@@ -1,4 +1,9 @@
+import monitorCallbackAsync from "@calcom/core/sentryWrapper";
+import { handleWebhookTrigger } from "@calcom/features/bookings/lib/handleWebhookTrigger";
+import type { GetSubscriberOptions } from "@calcom/features/webhooks/lib/getWebhooks";
+import type { EventPayloadType } from "@calcom/features/webhooks/lib/sendPayload";
 import { EMAIL_FROM_NAME } from "@calcom/lib/constants";
+import { WebhookTriggerEvents } from "@calcom/prisma/enums";
 import type { CalendarEvent, Person } from "@calcom/types/Calendar";
 
 import { renderEmail } from "../";
@@ -28,6 +33,25 @@ export default class OrganizerReassignedEmail extends OrganizerScheduledEmail {
   }
 
   async getHtml(calEvent: CalendarEvent, attendee: Person, reassigned: Reassigned | undefined) {
+    const subscriberOptions: GetSubscriberOptions = {
+      eventTypeId: calEvent.eventTypeId,
+      triggerEvent: WebhookTriggerEvents.BOOKING_RESCHEDULED,
+    };
+
+    const webhookData: EventPayloadType = {
+      ...calEvent,
+      bookingId: calEvent.bookingId,
+      eventTypeId: calEvent.eventTypeId,
+    };
+
+    const eventTrigger = WebhookTriggerEvents.BOOKING_RESCHEDULED;
+
+    await monitorCallbackAsync(handleWebhookTrigger, {
+      subscriberOptions,
+      eventTrigger,
+      webhookData,
+    });
+
     return await renderEmail("OrganizerReassignedEmail", {
       calEvent,
       attendee,

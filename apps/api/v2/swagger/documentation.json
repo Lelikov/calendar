@@ -11026,7 +11026,6 @@
           },
           "locale": {
             "type": "string",
-            "nullable": true,
             "default": "en",
             "description": "Locale",
             "example": "en"

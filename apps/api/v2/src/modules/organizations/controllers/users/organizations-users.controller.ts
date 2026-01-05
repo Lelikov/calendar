@@ -70,7 +70,7 @@ export class OrganizationsUsersController {
       data: users.map((user) =>
         plainToInstance(
           GetOrgUsersWithProfileOutput,
-          { ...user, profile: user?.profiles?.[0] ?? {} },
+          { ...user, profile: (user as any)?.profiles?.[0] ?? {} },
           { strategy: "excludeAll" }
         )
       ),
@@ -96,7 +96,7 @@ export class OrganizationsUsersController {
       status: SUCCESS_STATUS,
       data: plainToInstance(
         GetOrgUsersWithProfileOutput,
-        { ...user, profile: user?.profiles?.[0] ?? {} },
+        { ...user, profile: (user as any)?.profiles?.[0] ?? {} },
         { strategy: "excludeAll" }
       ),
     };
@@ -118,7 +118,7 @@ export class OrganizationsUsersController {
       status: SUCCESS_STATUS,
       data: plainToInstance(
         GetOrgUsersWithProfileOutput,
-        { ...user, profile: user?.profiles?.[0] ?? {} },
+        { ...user, profile: (user as any)?.profiles?.[0] ?? {} },
         { strategy: "excludeAll" }
       ),
     };
@@ -138,7 +138,7 @@ export class OrganizationsUsersController {
       status: SUCCESS_STATUS,
       data: plainToInstance(
         GetOrgUsersWithProfileOutput,
-        { ...user, profile: user?.profiles?.[0] ?? {} },
+        { ...user, profile: (user as any)?.profiles?.[0] ?? {} },
         { strategy: "excludeAll" }
       ),
     };

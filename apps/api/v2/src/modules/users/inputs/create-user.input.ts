@@ -115,7 +115,7 @@ export class CreateUserInput {
   @IsString()
   @Validate(LocaleValidator)
   @Expose()
-  locale?: string | null = "en";
+  locale?: string = "en";
 
   @ApiProperty({
     type: String,

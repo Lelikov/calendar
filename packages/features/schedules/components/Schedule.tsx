@@ -447,7 +447,7 @@ interface IOption {
  * 23:45:00 (End of day with enough time for 15 min booking)
  */
 /** Begin Time Increments For Select */
-const INCREMENT = Number(process.env.NEXT_PUBLIC_AVAILABILITY_SCHEDULE_INTERVAL) || 15;
+const INCREMENT = Number(process.env.NEXT_PUBLIC_AVAILABILITY_SCHEDULE_INTERVAL) || 60;
 const useOptions = (timeFormat: number | null) => {
   const [filteredOptions, setFilteredOptions] = useState<IOption[]>([]);
 

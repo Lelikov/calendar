@@ -77,12 +77,17 @@ export class OrganizationsUsersRepository {
   }
 
   async updateOrganizationUser(orgId: number, userId: number, updateUserBody: UpdateOrganizationUserInput) {
+    // Filter out null values to avoid Prisma type errors
+    const filteredData = Object.fromEntries(
+      Object.entries(updateUserBody).filter(([_, value]) => value !== null)
+    ) as UpdateOrganizationUserInput;
+
     return await this.dbWrite.prisma.user.update({
       where: {
         id: userId,
         organizationId: orgId,
       },
-      data: updateUserBody,
+      data: filteredData,
       include: {
         profiles: {
           where: {

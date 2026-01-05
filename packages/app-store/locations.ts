@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { appStoreMetadata } from "@calcom/app-store/bookerAppsMetaData";
 import logger from "@calcom/lib/logger";
-import { BookingStatus } from "@calcom/prisma/enums";
+import type { BookingStatus } from "@calcom/prisma/enums";
 import type { Ensure, Optional } from "@calcom/types/utils";
 
 import type { EventLocationTypeFromAppMeta } from "../types/App";
@@ -434,22 +434,10 @@ export function getSuccessPageLocationMessage(
   t: TFunction,
   bookingStatus?: BookingStatus
 ) {
-  const eventLocationType = getEventLocationType(location);
-  let locationToDisplay = location;
-  if (eventLocationType && !eventLocationType.default && eventLocationType.linkType === "dynamic") {
-    const isConfirmed = bookingStatus === BookingStatus.ACCEPTED;
-
-    if (bookingStatus === BookingStatus.CANCELLED || bookingStatus === BookingStatus.REJECTED) {
-      locationToDisplay == t("web_conference");
-    } else if (isConfirmed) {
-      locationToDisplay = `${getHumanReadableLocationValue(location, t)}: ${t(
-        "meeting_url_in_confirmation_email"
-      )}`;
-    } else {
-      locationToDisplay = t("web_conferencing_details_to_follow");
-    }
-  }
-  return locationToDisplay;
+  console.log("location", location);
+  console.log("t", t);
+  console.log("bookingStatus", bookingStatus);
+  return null;
 }
 
 export const getTranslatedLocation = (

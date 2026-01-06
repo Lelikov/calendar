@@ -29,7 +29,7 @@ export default class BrokenIntegrationEmail extends BaseEmail {
       to: toAddresses.join(","),
       subject: `[Action Required] ${this.t("confirmed_event_type_subject", {
         eventType: this.calEvent.type,
-        name: this.calEvent.attendees[0].name,
+        name: this.calEvent.attendees[0]?.name || "default",
         date: this.getFormattedDate(),
       })}`,
       html: await renderEmail("BrokenIntegrationEmail", {

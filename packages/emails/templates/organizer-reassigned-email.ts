@@ -34,17 +34,18 @@ export default class OrganizerReassignedEmail extends OrganizerScheduledEmail {
 
   async getHtml(calEvent: CalendarEvent, attendee: Person, reassigned: Reassigned | undefined) {
     const subscriberOptions: GetSubscriberOptions = {
-      eventTypeId: calEvent.eventTypeId,
-      triggerEvent: WebhookTriggerEvents.BOOKING_RESCHEDULED,
+      teamId: calEvent.team?.id,
+      triggerEvent: WebhookTriggerEvents.BOOKING_PAYMENT_INITIATED,
     };
 
     const webhookData: EventPayloadType = {
       ...calEvent,
       bookingId: calEvent.bookingId,
       eventTypeId: calEvent.eventTypeId,
+      rescheduledBy: reassigned?.email,
     };
 
-    const eventTrigger = WebhookTriggerEvents.BOOKING_RESCHEDULED;
+    const eventTrigger = WebhookTriggerEvents.BOOKING_PAYMENT_INITIATED;
 
     await monitorCallbackAsync(handleWebhookTrigger, {
       subscriberOptions,

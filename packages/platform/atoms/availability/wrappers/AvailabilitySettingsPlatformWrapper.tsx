@@ -118,7 +118,7 @@ export const AvailabilitySettingsPlatformWrapper = ({
   if (isLoading) return <div className="px-10 py-4 text-xl">Loading...</div>;
 
   if (!atomSchedule) return <div className="px-10 py-4 text-xl">No user schedule present</div>;
-
+  console.log(allowDelete);
   return (
     <AtomsWrapper>
       <AvailabilitySettings
@@ -156,7 +156,7 @@ export const AvailabilitySettingsPlatformWrapper = ({
         backPath=""
         isPlatform={true}
         customClassNames={customClassNames}
-        allowDelete={allowDelete}
+        allowDelete={false}
         allowSetToDefault={allowSetToDefault}
       />
     </AtomsWrapper>

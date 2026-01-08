@@ -6,17 +6,7 @@ import { useLocale } from "@calcom/lib/hooks/useLocale";
 import { sortAvailabilityStrings } from "@calcom/lib/weekstart";
 import type { RouterOutputs } from "@calcom/trpc/react";
 import { trpc } from "@calcom/trpc/react";
-import {
-  Badge,
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  Icon,
-  showToast,
-} from "@calcom/ui";
+import { Badge, Icon } from "@calcom/ui";
 
 export function ScheduleListItem({
   schedule,
@@ -83,68 +73,6 @@ export function ScheduleListItem({
             </p>
           </Link>
         </div>
-        <Dropdown>
-          <DropdownMenuTrigger asChild>
-            <Button
-              data-testid="schedule-more"
-              className="mx-5"
-              type="button"
-              variant="icon"
-              color="secondary"
-              StartIcon="ellipsis"
-            />
-          </DropdownMenuTrigger>
-          {!isPending && data && (
-            <DropdownMenuContent>
-              <DropdownMenuItem className="min-w-40 focus:ring-muted">
-                {!schedule.isDefault && (
-                  <DropdownItem
-                    type="button"
-                    StartIcon="star"
-                    onClick={() => {
-                      updateDefault({
-                        scheduleId: schedule.id,
-                        isDefault: true,
-                      });
-                    }}>
-                    {t("set_as_default")}
-                  </DropdownItem>
-                )}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="outline-none">
-                <DropdownItem
-                  type="button"
-                  data-testid={`schedule-duplicate${schedule.id}`}
-                  StartIcon="copy"
-                  onClick={() => {
-                    duplicateFunction({
-                      scheduleId: schedule.id,
-                    });
-                  }}>
-                  {t("duplicate")}
-                </DropdownItem>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="min-w-40 focus:ring-muted">
-                <DropdownItem
-                  type="button"
-                  color="destructive"
-                  StartIcon="trash"
-                  data-testid="delete-schedule"
-                  onClick={() => {
-                    if (!isDeletable) {
-                      showToast(t("requires_at_least_one_schedule"), "error");
-                    } else {
-                      deleteFunction({
-                        scheduleId: schedule.id,
-                      });
-                    }
-                  }}>
-                  {t("delete")}
-                </DropdownItem>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          )}
-        </Dropdown>
       </div>
     </li>
   );

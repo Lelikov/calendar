@@ -281,7 +281,7 @@ export function AvailabilitySettings({
   enableOverrides = false,
   bulkUpdateModalProps,
   allowSetToDefault = true,
-  allowDelete = true,
+  allowDelete = false,
 }: AvailabilitySettingsProps) {
   const [openSidebar, setOpenSidebar] = useState(false);
   const { t, i18n } = useLocale();

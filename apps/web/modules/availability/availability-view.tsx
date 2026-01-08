@@ -241,7 +241,6 @@ export default function AvailabilityPage({ currentOrg }: PageProps) {
                 options={toggleGroupOptions}
               />
             )}
-            <NewScheduleButton />
           </div>
         }>
         {searchParams?.get("type") === "team" && isOrgAdminOrOwner ? (
